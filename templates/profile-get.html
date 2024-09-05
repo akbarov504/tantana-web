@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% block title %}
+Profile Get Page
+{% endblock %}
+{% block content %}
+<section class="box">
+    <div class="container-fluid">
+        <div class="row w-100 ml-lg-0 ml-1">
+            <div class="profile-get-karousel-box col-lg-8 col-12 mt-5 p-0 ml-lg-5 ml-0">
+                <!-- <div id="carouselExampleControls" class="carousel slide w-100 h-75" data-ride="carousel">
+                    <div class="carousel-inner w-100 h-100">
+                        {% for pro in profile_images %}
+                        {% if p_count == pro.id %}
+                        <div class="carousel-item active w-100 h-100">
+                            <img class="d-block w-100 h-100" src="{{ url_for('static', filename=pro.image) }}"
+                                alt="First slide">
+                        </div>
+                        {% else %}
+                        <div class="carousel-item w-100 h-100">
+                            <img class="d-block w-100 h-100" src="{{ url_for('static', filename=pro.image) }}"
+                                alt="First slide">
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div> -->
+                <div id="owl-demo" class="owl-carousel owl-theme w-100 h-75">
+                    {% for pro in profile_images %}
+                    {% if p_count == pro.id %}
+                    <div class="item w-100 h-100">
+                        <img src="{{ url_for('static', filename=pro.image) }}" width="100%" height="300px"
+                            alt="Owl Image">
+                    </div>
+                    {% else %}
+                    <div class="item w-100 h-100">
+                        <img src="{{ url_for('static', filename=pro.image) }}" width="100%" height="300px"
+                            alt="Owl Image">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <h3 class="profile-get-box-title mt-3">{{ profile.title }}</h3>
+                <p class="profile-get-box-description">{{ profile.description }}</p>
+            </div>
+            <div class="profile-get-kalendar-box col-lg-3 col-12 ml-lg-4 ml-0 mt-lg-5 mt-0 p-0">
+                <div class="profile-get-kalendar w-100" style="height: 85%; border: 1px solid #52796f;">
+                    <div class="d-flex justify-content-between p-3">
+                        <div>
+                            <h3 id="month" style="color: #52796F;">{{ month_name }}</h3>
+                        </div>
+                        <div>
+                            <button onclick="changeMonthPrev()" type="button" class="btn"><</button>
+                            <button onclick="changeMonthNext()" type="button" class="btn">></button>
+                        </div>
+                    </div>
+                    <div class="d-flex col-12 text-center">
+                        <p style="width: 70px; color: #52796F;">Ду</p>
+                        <p style="width: 70px; color: #52796F;">Се</p>
+                        <p style="width: 70px; color: #52796F;">Чо</p>
+                        <p style="width: 70px; color: #52796F;">Па</p>
+                        <p style="width: 70px; color: #52796F;">Дж</p>
+                        <p style="width: 70px; color: red;">Ша</p>
+                        <p style="width: 70px; color: red;">Як</p>
+                    </div>
+                    <div class="w-100 d-flex flex-wrap ml-2" id="calendar-box">
+
+                    </div>
+                </div>
+                <div style="height: 20%;">
+                    {% if current_user.is_authenticated %}
+                    {% if profile.created_by != current_user.id %}
+                    <a href="{{ url_for('notification_send_page', id=profile.id) }}"
+                        class="btn profile-get-btn text-white w-100 mt-lg-5 mt-0">Murojat</a>
+                    {% else %}
+                    <a href="{{ url_for('profile_edit_page', id=profile.id) }}"
+                        class="btn profile-get-btn text-white w-100 mt-lg-5 mt-0">Edit</a>
+                    {% endif %}
+                    {% else %}
+                    <a href="{{ url_for('login_page') }}"
+                        class="btn profile-get-btn text-white w-100 mt-lg-5 mt-0">Murojat</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    changeCalendar()
+    function changeCalendar() {
+        let month = document.getElementById("month").innerText
+        if (month == "August") {
+            let text = "<div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              {% for calendar in calendar_list %}\
+                                  {% if calendar.date == 'August' %}\
+                                      {% if profile.created_by == current_user.id %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% else %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% endif %}\
+                                  {% endif %}\
+                                  {% endfor %}"
+            document.getElementById("calendar-box").innerHTML = text
+        }
+        if (month == "September") {
+            let text = "<div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              {% for calendar in calendar_list %}\
+                                  {% if calendar.date == 'September' %}\
+                                      {% if profile.created_by == current_user.id %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% else %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% endif %}\
+                                  {% endif %}\
+                                  {% endfor %}"
+            document.getElementById("calendar-box").innerHTML = text
+        }
+        if (month == "October") {
+            let text = "<div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              {% for calendar in calendar_list %}\
+                                  {% if calendar.date == 'October' %}\
+                                      {% if profile.created_by == current_user.id %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% else %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% endif %}\
+                                  {% endif %}\
+                                  {% endfor %}"
+            document.getElementById("calendar-box").innerHTML = text
+        }
+        if (month == "November") {
+            let text = "<div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              {% for calendar in calendar_list %}\
+                                  {% if calendar.date == 'November' %}\
+                                      {% if profile.created_by == current_user.id %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% else %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% endif %}\
+                                  {% endif %}\
+                                  {% endfor %}"
+            document.getElementById("calendar-box").innerHTML = text
+        }
+        if (month == "December") {
+            let text = "<div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              <div class='m-1' style='padding-top: 10px; width: 42.4px; height: 45px;'></div>\
+              {% for calendar in calendar_list %}\
+                                  {% if calendar.date == 'December' %}\
+                                      {% if profile.created_by == current_user.id %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='{{ url_for('change_status_page', calendar_id=calendar.id, profile_id=profile.id) }}' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% else %}\
+                                      {% if calendar.is_free %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none;'>{{ calendar.day }}</a>\
+                                      {% else %}\
+                                      <a href='#' class='m-1 text-center' style='color: #52796f; width: 42.4px; height: 45px; padding-top: 10px; text-decoration: none; border: 1px solid #52796f;'>{{ calendar.day }}</a>\
+                                      {% endif %}\
+                                      {% endif %}\
+                                  {% endif %}\
+                                  {% endfor %}"
+            document.getElementById("calendar-box").innerHTML = text
+        }
+    }
+
+    function changeMonthPrev() {
+        let currMonth = document.getElementById("month").innerText
+        if (currMonth == "September") {
+            document.getElementById("month").innerText = "August"
+            changeCalendar()
+        }
+        if (currMonth == "October") {
+            document.getElementById("month").innerText = "September"
+            changeCalendar()
+        }
+        if (currMonth == "November") {
+            document.getElementById("month").innerText = "October"
+            changeCalendar()
+        }
+        if (currMonth == "December") {
+            document.getElementById("month").innerText = "November"
+            changeCalendar()
+        }
+    }
+
+    function changeMonthNext() {
+        let currMonth = document.getElementById("month").innerText
+        if (currMonth == "August") {
+            document.getElementById("month").innerText = "September"
+            changeCalendar()
+        }
+        if (currMonth == "September") {
+            document.getElementById("month").innerText = "October"
+            changeCalendar()
+        }
+        if (currMonth == "October") {
+            document.getElementById("month").innerText = "November"
+            changeCalendar()
+        }
+        if (currMonth == "November") {
+            document.getElementById("month").innerText = "December"
+            changeCalendar()
+        }
+    }
+</script>
+{% endblock %}

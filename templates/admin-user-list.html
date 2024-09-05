@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}
+Admin Page
+{% endblock %}
+{% block content %}
+<section class="box">
+    <div class="container-fluid">
+        <div class="row d-flex flex-wrap">
+            <div class="col-lg-3 col-12 saidbar ml-lg-0 ml-0 mt-lg-5 mt-2">
+                
+                <div class="btn-group dropright saidbar-item mt-1">
+                    <a href="{{ url_for('admin_user_list_page') }}" type="button" class="saidbar-item text-white btn">
+                        User
+                    </a>
+                </div>
+                <div class="btn-group dropright saidbar-item mt-1">
+                    <a href="{{ url_for('admin_slider_list_page') }}" type="button" class="saidbar-item text-white btn">
+                        Slider
+                    </a>
+                </div>
+                <div class="btn-group dropright saidbar-item mt-1">
+                    <a href="{{ url_for('admin_banner_list_page') }}" type="button" class="saidbar-item text-white btn">
+                        Banner
+                    </a>
+                </div>
+                <div class="btn-group dropright saidbar-item mt-1">
+                    <a href="{{ url_for('admin_category_list_page') }}" type="button" class="saidbar-item text-white btn">
+                        Category
+                    </a>
+                </div>
+                <div class="btn-group dropright saidbar-item mt-1">
+                    <a href="{{ url_for('admin_respublika_list_page') }}" type="button" class="saidbar-item text-white btn">
+                        Respublika
+                    </a>
+                </div>
+                <div class="btn-group dropright saidbar-item mt-1">
+                    <a href="{{ url_for('admin_viloyat_list_page') }}" type="button" class="saidbar-item text-white btn">
+                        Viloyat
+                    </a>
+                </div>
+                <div class="btn-group dropright saidbar-item mt-1">
+                    <a href="{{ url_for('admin_tuman_list_page') }}" type="button" class="saidbar-item text-white btn">
+                        Tuman
+                    </a>
+                </div>
+                
+            </div>
+            <div class="col-lg-9 col-12 mt-lg-5 mt-2">
+                <table class="table table-hover w-100" style="background-color: #f2f8ef; color: #52796f;">
+                    <tr>
+                        <th>#</th>
+                        <th>Full name</th>
+                        <th>Phone</th>
+                        <th>Password</th>
+                        <th>Lang</th>
+                        <th>Role</th>
+                        <th>Created At</th>
+                    </tr>
+                    {% for user in user_list %}
+                    <tr>
+                        <th>{{ user.id }}</th>
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>{{ user.lang }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

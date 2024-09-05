@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body style="background-color: #F2F8EF;">
+    <section class="box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-10 mx-auto" style="margin-top: 150px;">
+                    <h1 class="text-center" style="color: #52796F;">Register</h1>
+                    <form method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group mt-4">
+                            {{ form.full_name.label(style="color: #52796F;") }}
+                            {{ form.full_name(class="form-control", style="box-shadow: none !important;") }}
+                        </div>
+                        <div class="form-group mt-4">
+                            {{ form.phone.label(style="color: #52796F;") }}
+                            {{ form.phone(class="form-control", placeholder="+998", style="box-shadow: none !important;") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.phone.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-group mt-4">
+                            {{ form.password.label(style="color: #52796F;") }}
+                            {{ form.password(class="form-control", style="box-shadow: none !important;") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {{ form.submit(class='btn btn-primary w-100 mt-2 pt-2 pb-2', style='background-color: #52796F; outline: none !important; box-shadow: none !important; border: 0; font-size: 20px;') }}
+                        <p class="text-center mt-2" style="color: #52796F;">All ready have an account?  <a style="text-decoration: none; color: #52796F; font-weight: bold;" href="{{ url_for('login_page') }}">Login</a></p>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+Viloyat Update Page
+{% endblock %}
+{% block content %}
+    <section class="box">
+        <div class="container-fluid">
+            <div class="row">
+                <form method="post" class="d-flex w-100 ml-lg-5 mt-lg-4">
+                    {{ form.hidden_tag() }}
+                    <div class="col-lg-5 mx-auto">
+                        <h1 class="mt-5">Viloyat Update</h1>
+                        <div class="form-group mt-4">
+                            {{ form.text.label(style="color: #52796F;") }}
+                            {{ form.text(class="form-control", style="box-shadow: none !important;", placeholder="Enter Viloyat name") }}
+                        </div>
+                        <div class="form-group mt-4">
+                            {{ form.respublika.label(style="color: #52796F;") }}
+                            {{ form.respublika(class="form-control", style="box-shadow: none !important;", placeholder="Select respublika") }}
+                        </div>
+                        <div class="form-group mt-4">
+                            {{ form.submit(class='btn btn-primary w-100 mt-2 pt-2 pb-2', style='background-color: #52796F; outline: none !important; box-shadow: none !important; border: 0; font-size: 20px;') }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

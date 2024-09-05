@@ -1,0 +1,136 @@
+body {
+  background-color: #f2f8ef !important;
+}
+
+.box {
+  width: 100%;
+}
+
+#owl-demo .item {
+  margin: 3px;
+}
+
+#owl-demo .owl-stage-outer {
+  height: 100%;
+}
+
+#owl-demo .item img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: cover;
+  /* height: 100%; */
+}
+
+.navbar {
+  background-color: #52796f;
+}
+
+.navbar-custom-btn {
+  color: #52796f;
+  background-color: #f2f8ef;
+}
+
+.navbar-logo-box {
+  width: 160px;
+}
+
+.navbar-nav {
+  gap: 15px;
+}
+
+.footer-box {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  position: relative;
+  transition: 0.2s all;
+  background-color: #52796f;
+  justify-content: space-between;
+}
+
+.footer-box.active {
+  height: 0;
+}
+
+.footer-box .open-icon {
+  left: 50%;
+  top: -35px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  border-radius: 50%;
+  transition: 0.5s all;
+  align-items: center;
+  background: #f2f8ef;
+  justify-content: center;
+  transform: translate(-50%, 0);
+}
+
+.footer-box .open-icon.active {
+  top: 0px;
+}
+
+.saidbar-item {
+  width: 100%;
+  height: 50px;
+  color: #f2f8ef;
+  text-align: center;
+  border-radius: 10px;
+  outline: none !important;
+  font-size: 22px !important;
+  box-shadow: none !important;
+  background-color: #52796f;
+}
+
+.main {
+  height: 100vh;
+}
+
+.main-karusel-box {
+  width: 100%;
+  height: 35%;
+}
+
+.main-text-box {
+  width: 100%;
+  height: 10%;
+  color: #52796f;
+  text-align: center;
+}
+
+.main-banner-box {
+  width: 100%;
+  height: 35%;
+}
+
+.profile-box-title,
+.profile-box-description,
+.profile-get-box-title,
+.profile-get-box-description {
+  color: #52796f;
+}
+
+.profile-get-karousel-box {
+  height: 400px;
+}
+
+.profile-get-btn {
+  text-decoration: none;
+  background-color: #52796f;
+}
+#city-hover:hover #city-menu-hover,
+#country-hover:hover #country-menu-hover {
+  top: 0px !important;
+  left: 0px !important;
+  margin-top: 0 !important;
+  display: block !important;
+  position: absolute !important;
+  will-change: transform !important;
+  transform: translate3d(-200px, 0px, 0px) !important;
+}
+
+#city-hover:hover #city-menu-hover {
+  transform: translate3d(-150px, 0px, 0px) !important;
+
+}

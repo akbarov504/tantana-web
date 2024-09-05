@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+Profile Get Page
+{% endblock %}
+{% block content %}
+    <section class="box">
+        <div class="container-fluid">
+            <div class="row ml-lg-5 pt-lg-5">
+                <div class="col-4">
+                    {% for chat in chat_list %}
+                    <div class="w-100 text-center bg-white mt-2 p-3">
+                        <a href="{{ url_for('notification_get_page', id=chat.id) }}" style="text-decoration: none; color: #52796F; font-size: 20px;">
+                            {{ chat.id }}
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
